@@ -73,21 +73,19 @@ function isNum(x) {
     return Number.isNaN(NUM) ? null : NUM;
 }
 
-function (evento) {
 
-   const BN = pags_bn.value, C = pags_c.value
+const BN = pags_bn.value, C = pags_c.value
 
-   function suma_bn(x) {
-      const N = isNum(x);
-      return (N === null) ? null : N * PRECIO_BN_A4;
-   }
-   
-   function suma_c(x) {
-      const N = isNum(x);
-      return (N === null) ? null : N * PRECIO_COLOR_A4;
-   }
-   
-   if (BN) {}
-
-
+function suma_bn(x) {
+   const N = isNum(x);
+   return (N === null) ? null : N * PRECIO_BN_A4;
 }
+
+function suma_c(x) {
+   const N = isNum(x);
+   return (N === null) ? null : N * PRECIO_COLOR_A4;
+}
+
+if (BN) {}
+
+
