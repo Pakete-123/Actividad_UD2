@@ -73,7 +73,6 @@ function isNum(x) {
     return Number.isNaN(NUM) ? null : NUM;
 }
 
-
 const BN = pags_bn.value, C = pags_c.value
 
 function suma_bn(x) {
@@ -86,6 +85,7 @@ function suma_c(x) {
    return (N === null) ? null : N * PRECIO_COLOR_A4;
 }
 
-if (BN) {}
+if (BN > 0) suma_bn(BN);
+if (C > 0) suma_c(C);
 
 
