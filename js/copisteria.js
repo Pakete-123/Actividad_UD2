@@ -87,5 +87,3 @@ function suma_c(x) {
 
 if (BN > 0) suma_bn(BN);
 if (C > 0) suma_c(C);
-
-
