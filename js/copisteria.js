@@ -23,7 +23,7 @@ const UMBRAL2 = 60, DTO2 = 0.10;   // ≥60€ → 10%
    P S E U D O C Ó D I G O   D E   L O   Q U E   H A Y   Q U E   H A C E R
    ==========================================================
 
-/*
+/* TIENEN QUE SER CÉNTIMOS, NO EUROS
 PRESUPUESTADOR (UD2) — GUION 
 Objetivo:
 - Solicitar datos de un encargo de copistería y presentar un presupuesto desglosado.
@@ -64,16 +64,15 @@ Comprobación mínima:
 */
 
 //Creamos las variables necesarias
-var pags_bn = prompt("¿Cuántas páginas quiere en blanco y negro?"), pags_c = prompt("¿Cuántas páginas quiere a color?");
+var pags_bn = prompt("¿Cuántas páginas quiere en blanco y negro?"), pags_c = prompt("¿Cuántas páginas quiere a color?"), doble_c = prompt("¿Quiere que sean copias a doble cara?");
+const BN = pags_bn.value, C = pags_c.value, DOBLE = doble_c.value;
 
 
 //Verificamos que el dato introducido sea un número, si no devuelve null
 function isNum(x) {
     const NUM = Number(x);
-    return Number.isNaN(NUM) ? null : NUM;
+    return Number.isNaN(NUM) ? null : NUM * 100;
 }
-
-const BN = pags_bn.value, C = pags_c.value
 
 function suma_bn(x) {
    const N = isNum(x);
@@ -85,5 +84,9 @@ function suma_c(x) {
    return (N === null) ? null : N * PRECIO_COLOR_A4;
 }
 
-if (BN > 0) suma_bn(BN);
-if (C > 0) suma_c(C);
+let subtotal = suma_bn + suma_c;
+
+function doble_c(x) {
+   const N = isNum(x);
+   return (N === null) ? null : subtotal *= FACTOR_DOBLE_CARA;
+}
