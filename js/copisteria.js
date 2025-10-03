@@ -23,7 +23,7 @@ const UMBRAL2 = 60, DTO2 = 0.10;   // ≥60€ → 10%
    P S E U D O C Ó D I G O   D E   L O   Q U E   H A Y   Q U E   H A C E R
    ==========================================================
 
-/*
+/* TIENEN QUE SER CÉNTIMOS, NO EUROS
 PRESUPUESTADOR (UD2) — GUION 
 Objetivo:
 - Solicitar datos de un encargo de copistería y presentar un presupuesto desglosado.
@@ -64,17 +64,16 @@ Comprobación mínima:
 */
 
 //Creamos las variables necesarias
-var pags_bn = prompt("¿Cuántas páginas quiere en blanco y negro?"), pags_c = prompt("¿Cuántas páginas quiere a color?");
+var pags_bn = prompt("¿Cuántas páginas quiere en blanco y negro?"), pags_c = prompt("¿Cuántas páginas quiere a color?"), doble_c = prompt("¿Quiere que sean copias a doble cara?"), a3 = prompt("¿Quiere que sea papel DIN A3? (Y/N)"), encBN = prompt("Introduce cuántas encuadernaciones quiere en Blanco y Negro"), encC = prompt("Introduce cuántas encuadernaciones quiere a Color"), urg = prompt("¿Lo necesita con urgencia?");
+let subtotal = suma_bn + suma_c;
 
 
-//Verificamos que el dato introducido sea un número, si no devuelve null
+//Verificamos que el dato introducido sea un número
+
 function isNum(x) {
-    const NUM = Number(x);
-    return Number.isNaN(NUM) ? null : NUM;
+   const NUM = Number(x);
+   return Number.isNaN(NUM) || NUM < 0 ? null : NUM * 100;
 }
-
-
-const BN = pags_bn.value, C = pags_c.value
 
 function suma_bn(x) {
    const N = isNum(x);
@@ -101,6 +100,12 @@ function urgencia (x){
    return (N === null) ? null : N * RECARGO_URGENCIA;
 }
 
+function doble_c(x) {
+   const N = isNum(x);
+   return (N === null) ? null : subtotal *= FACTOR_DOBLE_CARA;
+}
 
+// ESTO VA DENTRO DE LA FUNCION DE EJECUCION
+const BN = pags_bn.value, C = pags_c.value, DOBLE = doble_c.value;
 
 /*nigga*/
