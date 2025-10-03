@@ -63,10 +63,6 @@ Comprobación mínima:
 - Probar al menos un caso con descuento y con urgencia, verificando que el orden indicado modifica el resultado.
 */
 
-//Creamos las variables necesarias
-var pags_bn = prompt("¿Cuántas páginas quiere en blanco y negro?"), pags_c = prompt("¿Cuántas páginas quiere a color?"), doble_c = prompt("¿Quiere que sean copias a doble cara?"), a3 = prompt("¿Quiere que sea papel DIN A3? (Y/N)"), encBN = prompt("Introduce cuántas encuadernaciones quiere en Blanco y Negro"), encC = prompt("Introduce cuántas encuadernaciones quiere a Color"), urg = prompt("¿Lo necesita con urgencia?");
-let subtotal = suma_bn + suma_c;
-
 
 //Verificamos que el dato introducido sea un número
 
@@ -101,12 +97,28 @@ function urgencia (x){
    return (N === null) ? null : N * RECARGO_URGENCIA;
 }
 
-function doble_c(x) {
+function doble(x) {
    const N = isNum(x);
-   return (N === null) ? null : subtotal *= FACTOR_DOBLE_CARA;
+   return (N === null) ? null : N *= FACTOR_DOBLE_CARA;
 }
 
 
+//Creamos las variables necesarias
+var pags_bn = prompt("¿Cuántas páginas quiere en blanco y negro?"), pags_c = prompt("¿Cuántas páginas quiere a color?"), doble_c = prompt("¿Quiere que sean copias a doble cara?"), a3 = prompt("¿Quiere que sea papel DIN A3? (Y/N)"), enc_BN = prompt("Introduce cuántas encuadernaciones quiere en Blanco y Negro"), enc_C = prompt("Introduce cuántas encuadernaciones quiere a Color"), urg = prompt("¿Lo necesita con urgencia? (Y/N)");
 
-// ESTO VA DENTRO DE LA FUNCION DE EJECUCION
-const BN = pags_bn.value, C = pags_c.value, DOBLE = doble_c.value;
+// ESTO VA DENTRO DEL BUCLE DE EJECUCION
+const BN = pags_bn.value, C = pags_c.value, ENC_BN = enc_BN.value, ENC_C = enc_C.value, DOBLE = doble_c.value, URG = urg.toUpperCase;
+let subtotal = 0;
+
+if (BN > 0) subtotal += suma_bn(BN);
+if (C > 0) subtotal += suma_c(C);
+if (ENC_BN > 0) subtotal += encuadernaciones(ENC_BN);
+if (ENC_C > 0) subtotal += encuadernaciones(ENC_C);
+if (DOBLE > 0) subtotal += doble(DOBLE);
+
+if (subtotal >= UMBRAL2) { 
+   subtotal -= subtotal * DTO2;
+} else if (subtotal >= UMBRAL1) {
+   subtotal -= subtotal * DTO1;
+}
+
