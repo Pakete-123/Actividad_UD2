@@ -90,6 +90,15 @@ function factorA3 (x){
    return (N === null) ? null : N * RECARGO_A3_FACTOR;
 }
 
+function encuadernaciones(x){
+   const N = isNum(x);
+   return (N === null) ? null : N * PRECIO_ENCUADERNACION;
+}
+
+function urgencia (x){
+   const N = isNum(x);
+   return (N === null) ? null : N * RECARGO_URGENCIA;
+}
 
 function doble_c(x) {
    const N = isNum(x);
