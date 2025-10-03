@@ -84,6 +84,11 @@ function suma_c(x) {
    return (N === null) ? null : N * PRECIO_COLOR_A4;
 }
 
+function factorA3 (x){
+   const N = isNum(x);
+   return (N === null) ? null : N * RECARGO_A3_FACTOR;
+}
+
 let subtotal = suma_bn + suma_c;
 
 function doble_c(x) {
