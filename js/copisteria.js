@@ -64,14 +64,15 @@ Comprobación mínima:
 */
 
 //Creamos las variables necesarias
-var pags_bn = prompt("¿Cuántas páginas quiere en blanco y negro?"), pags_c = prompt("¿Cuántas páginas quiere a color?"), doble_c = prompt("¿Quiere que sean copias a doble cara?");
-const BN = pags_bn.value, C = pags_c.value, DOBLE = doble_c.value;
+var pags_bn = prompt("¿Cuántas páginas quiere en blanco y negro?"), pags_c = prompt("¿Cuántas páginas quiere a color?"), doble_c = prompt("¿Quiere que sean copias a doble cara?"), a3 = prompt("¿Quiere que sea papel DIN A3? (Y/N)"), encBN = prompt("Introduce cuántas encuadernaciones quiere en Blanco y Negro"), encC = prompt("Introduce cuántas encuadernaciones quiere a Color"), urg = prompt("¿Lo necesita con urgencia?");
+let subtotal = suma_bn + suma_c;
 
 
-//Verificamos que el dato introducido sea un número, si no devuelve null
+//Verificamos que el dato introducido sea un número
+
 function isNum(x) {
-    const NUM = Number(x);
-    return Number.isNaN(NUM) ? null : NUM * 100;
+   const NUM = Number(x);
+   return Number.isNaN(NUM) || NUM < 0 ? null : NUM * 100;
 }
 
 function suma_bn(x) {
@@ -89,10 +90,11 @@ function factorA3 (x){
    return (N === null) ? null : N * RECARGO_A3_FACTOR;
 }
 
-let subtotal = suma_bn + suma_c;
 
 function doble_c(x) {
    const N = isNum(x);
    return (N === null) ? null : subtotal *= FACTOR_DOBLE_CARA;
 }
 
+// ESTO VA DENTRO DE LA FUNCION DE EJECUCION
+const BN = pags_bn.value, C = pags_c.value, DOBLE = doble_c.value;
