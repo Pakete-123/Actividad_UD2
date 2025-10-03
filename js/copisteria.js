@@ -76,18 +76,19 @@ function isNum(x) {
 }
 
 function suma_bn(x) {
-   const N = isNum(x);
-   return (N === null) ? null : N * PRECIO_BN_A4;
+   let n = isNum(x);
+   if (a3 === "Y") factorA3(n);
+   return (n === null) ? null : n * PRECIO_BN_A4;
 }
 
 function suma_c(x) {
-   const N = isNum(x);
-   return (N === null) ? null : N * PRECIO_COLOR_A4;
+   let n = isNum(x);
+   if (a3 === "Y") factorA3(n);
+   return (n === null) ? null : n * PRECIO_COLOR_A4;
 }
 
 function factorA3 (x){
-   const N = isNum(x);
-   return (N === null) ? null : N * RECARGO_A3_FACTOR;
+   return (x === null) ? null : x * RECARGO_A3_FACTOR;
 }
 
 function encuadernaciones(x){
@@ -104,6 +105,8 @@ function doble_c(x) {
    const N = isNum(x);
    return (N === null) ? null : subtotal *= FACTOR_DOBLE_CARA;
 }
+
+
 
 // ESTO VA DENTRO DE LA FUNCION DE EJECUCION
 const BN = pags_bn.value, C = pags_c.value, DOBLE = doble_c.value;
