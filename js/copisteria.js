@@ -74,15 +74,23 @@ function eur(x) {
 }
 
 function suma_bn(x) {
-   let n = isNum(x);
-   if (a3 === "Y") factorA3(n);
-   return (n === null) ? null : n * PRECIO_BN_A4;
+   if (x === "Y") {
+      factorA3(x);
+   }
+      else {
+         x = null;
+      }
+   return (x === null) ? null : x * PRECIO_BN_A4;
 }
 
 function suma_c(x) {
-   let n = isNum(x);
-   if (a3 === "Y") factorA3(n);
-   return (n === null) ? null : n * PRECIO_COLOR_A4;
+   if (x === "Y") {
+      factorA3(x);
+   }
+      else {
+         x = null;
+      }
+   return (x === null) ? null : x * PRECIO_COLOR_A4;
 }
 
 function factorA3 (x){
@@ -90,28 +98,25 @@ function factorA3 (x){
 }
 
 function encuadernaciones(x){
-   const N = isNum(x);
-   return (N === null) ? null : N * PRECIO_ENCUADERNACION;
+   return (x === null) ? null : x * PRECIO_ENCUADERNACION;
 }
 
 function urgencia (x){
-   const N = isNum(x);
-   return (N === null) ? null : N * RECARGO_URGENCIA;
+   return (x === null) ? null : x * RECARGO_URGENCIA;
 }
 
 function doble(x) {
-   const N = isNum(x);
-   return (N === null) ? null : N *= FACTOR_DOBLE_CARA;
+   return (x === null) ? null : x *= FACTOR_DOBLE_CARA;
 }
 
 
-//Creamos las variables necesarias
+//Creamos las variables necesarias y las pedimos con prompt
 var pags_bn = Number(prompt("¿Cuántas páginas quiere en blanco y negro?")),
    pags_c = Number(prompt("¿Cuántas páginas quiere a color?")), 
-   doble_c = Number(prompt("¿Quiere que sean copias a doble cara?")),
+   doble_c = prompt("¿Quiere que sean copias a doble cara? (Y/N)").toUpperCase,
    a3 = prompt("¿Quiere que sea papel DIN A3? (Y/N)").toUpperCase, 
-   enc_BN = Number( prompt("Introduce cuántas encuadernaciones quiere en Blanco y Negro")), 
-   enc_C = Number(prompt("Introduce cuántas encuadernaciones quiere a Color")), 
+   enc_BN = Number(prompt("Introduce cuántas encuadernaciones quiere en Blanco y Negro")), 
+   enc_c = Number(prompt("Introduce cuántas encuadernaciones quiere a Color")), 
    urg = prompt("¿Lo necesita con urgencia? (Y/N)").toUpperCase;
 
 let subtotal = 0;
@@ -120,7 +125,6 @@ if (pags_bn > 0) subtotal += suma_bn(pags_bn);
 if (pags_c > 0) subtotal += suma_c(pags_c);
 if (enc_BN > 0) subtotal += encuadernaciones(enc_BN);
 if (enc_c > 0) subtotal += encuadernaciones(enc_c);
-if (doble_c > 0) subtotal += doble(doble_c);
 
 if (subtotal >= UMBRAL2) { 
    subtotal -= subtotal * DTO2;
@@ -128,3 +132,4 @@ if (subtotal >= UMBRAL2) {
    subtotal -= subtotal * DTO1;
 }
 
+console.log(subtotal);
