@@ -73,27 +73,21 @@ function eur(x) {
    return (x / 100).toFixed(2);
 }
 
-function suma_bn(x) {
-   if (x === "Y") {
+function suma_bn(x, y) {
+   if (y === "Y") {
       factorA3(x);
    }
-      else {
-         x = null;
-      }
    return (x === null) ? null : x * PRECIO_BN_A4;
 }
 
-function suma_c(x) {
-   if (x === "Y") {
+function suma_c(x, y) {
+   if (y === "Y") {
       factorA3(x);
    }
-      else {
-         x = null;
-      }
    return (x === null) ? null : x * PRECIO_COLOR_A4;
 }
 
-function factorA3 (x){
+function factorA3(x){
    return (x === null) ? null : x * RECARGO_A3_FACTOR;
 }
 
@@ -101,7 +95,7 @@ function encuadernaciones(x){
    return (x === null) ? null : x * PRECIO_ENCUADERNACION;
 }
 
-function urgencia (x){
+function urgencia(x){
    return (x === null) ? null : x * RECARGO_URGENCIA;
 }
 
@@ -114,19 +108,33 @@ function doble(x) {
 var pags_bn = Number(prompt("¿Cuántas páginas quiere en blanco y negro?")),
    pags_c = Number(prompt("¿Cuántas páginas quiere a color?")), 
    doble_c = prompt("¿Quiere que sean copias a doble cara? (Y/N)").toUpperCase,
-   a3 = prompt("¿Quiere que sea papel DIN A3? (Y/N)").toUpperCase, 
-   enc_BN = Number(prompt("Introduce cuántas encuadernaciones quiere en Blanco y Negro")), 
+   a3_bn = prompt("¿Quiere que sea papel DIN A3 en las copias Blanco y Negro? (Y/N)").toUpperCase, 
+   a3_c = prompt("¿Quiere que sea papel DIN A3 en las copias a Color? (Y/N)").toUpperCase, 
+   enc_bn = Number(prompt("Introduce cuántas encuadernaciones quiere en Blanco y Negro")), 
    enc_c = Number(prompt("Introduce cuántas encuadernaciones quiere a Color")), 
    urg = prompt("¿Lo necesita con urgencia? (Y/N)").toUpperCase;
 
-let subtotal = 0;
+var subtotal = 0;
 
-if (pags_bn > 0) subtotal += suma_bn(pags_bn);
-if (pags_c > 0) subtotal += suma_c(pags_c);
-if (enc_BN > 0) subtotal += encuadernaciones(enc_BN);
-if (enc_c > 0) subtotal += encuadernaciones(enc_c);
-
-if (subtotal >= UMBRAL2) { 
+if (pags_bn > 0){
+   subtotal += suma_bn(pags_bn, a3);
+} 
+if (pags_c > 0){
+   subtotal += suma_c(pags_c, a3);
+} 
+if (enc_bn > 0){
+   subtotal += encuadernaciones(enc_bn);
+} 
+if (enc_c > 0){
+   subtotal += encuadernaciones(enc_c);
+} 
+if (doble_c === "Y"){
+   subtotal += doble(subtotal);
+}
+if (urg === "Y"){
+   subtotal += urgencia
+}
+if (subtotal >= UMBRAL2) {
    subtotal -= subtotal * DTO2;
 } else if (subtotal >= UMBRAL1) {
    subtotal -= subtotal * DTO1;
