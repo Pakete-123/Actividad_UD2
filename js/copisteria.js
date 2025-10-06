@@ -117,10 +117,10 @@ var pags_bn = Number(prompt("¿Cuántas páginas quiere en blanco y negro?")),
 var subtotal = 0;
 
 if (pags_bn > 0){
-   subtotal += suma_bn(pags_bn, a3);
+   subtotal += suma_bn(pags_bn, a3_bn);
 } 
 if (pags_c > 0){
-   subtotal += suma_c(pags_c, a3);
+   subtotal += suma_c(pags_c, a3_c);
 } 
 if (enc_bn > 0){
    subtotal += encuadernaciones(enc_bn);
