@@ -65,6 +65,14 @@ Comprobación mínima:
 
 
 //Creamos las funciones
+function cents(x) {
+   return Math.round(x * 100);
+}
+
+function eur(x) {
+   return (x / 100).toFixed(2);
+}
+
 function suma_bn(x) {
    let n = isNum(x);
    if (a3 === "Y") factorA3(n);
@@ -98,12 +106,12 @@ function doble(x) {
 
 
 //Creamos las variables necesarias
-var pags_bn = prompt("¿Cuántas páginas quiere en blanco y negro?"),
-   pags_c = prompt("¿Cuántas páginas quiere a color?"), 
-   doble_c = prompt("¿Quiere que sean copias a doble cara?"),
+var pags_bn = Number(prompt("¿Cuántas páginas quiere en blanco y negro?")),
+   pags_c = Number(prompt("¿Cuántas páginas quiere a color?")), 
+   doble_c = Number(prompt("¿Quiere que sean copias a doble cara?")),
    a3 = prompt("¿Quiere que sea papel DIN A3? (Y/N)").toUpperCase, 
-   enc_BN = prompt("Introduce cuántas encuadernaciones quiere en Blanco y Negro"), 
-   enc_C = prompt("Introduce cuántas encuadernaciones quiere a Color"), 
+   enc_BN = Number( prompt("Introduce cuántas encuadernaciones quiere en Blanco y Negro")), 
+   enc_C = Number(prompt("Introduce cuántas encuadernaciones quiere a Color")), 
    urg = prompt("¿Lo necesita con urgencia? (Y/N)").toUpperCase;
 
 let subtotal = 0;
