@@ -64,13 +64,7 @@ Comprobación mínima:
 */
 
 
-//Verificamos que el dato introducido sea un número
-
-function isNum(x) {
-   const NUM = Number(x);
-   return Number.isNaN(NUM) || NUM < 0 ? null : NUM * 100;
-}
-
+//Creamos las funciones
 function suma_bn(x) {
    let n = isNum(x);
    if (a3 === "Y") factorA3(n);
@@ -104,17 +98,21 @@ function doble(x) {
 
 
 //Creamos las variables necesarias
-var pags_bn = prompt("¿Cuántas páginas quiere en blanco y negro?"), pags_c = prompt("¿Cuántas páginas quiere a color?"), doble_c = prompt("¿Quiere que sean copias a doble cara?"), a3 = prompt("¿Quiere que sea papel DIN A3? (Y/N)"), enc_BN = prompt("Introduce cuántas encuadernaciones quiere en Blanco y Negro"), enc_C = prompt("Introduce cuántas encuadernaciones quiere a Color"), urg = prompt("¿Lo necesita con urgencia? (Y/N)");
+var pags_bn = prompt("¿Cuántas páginas quiere en blanco y negro?"),
+   pags_c = prompt("¿Cuántas páginas quiere a color?"), 
+   doble_c = prompt("¿Quiere que sean copias a doble cara?"),
+   a3 = prompt("¿Quiere que sea papel DIN A3? (Y/N)").toUpperCase, 
+   enc_BN = prompt("Introduce cuántas encuadernaciones quiere en Blanco y Negro"), 
+   enc_C = prompt("Introduce cuántas encuadernaciones quiere a Color"), 
+   urg = prompt("¿Lo necesita con urgencia? (Y/N)").toUpperCase;
 
-// ESTO VA DENTRO DEL BUCLE DE EJECUCION
-const BN = pags_bn.value, C = pags_c.value, ENC_BN = enc_BN.value, ENC_C = enc_C.value, DOBLE = doble_c.value, URG = urg.toUpperCase;
 let subtotal = 0;
 
-if (BN > 0) subtotal += suma_bn(BN);
-if (C > 0) subtotal += suma_c(C);
-if (ENC_BN > 0) subtotal += encuadernaciones(ENC_BN);
-if (ENC_C > 0) subtotal += encuadernaciones(ENC_C);
-if (DOBLE > 0) subtotal += doble(DOBLE);
+if (pags_bn > 0) subtotal += suma_bn(pags_bn);
+if (pags_c > 0) subtotal += suma_c(pags_c);
+if (enc_BN > 0) subtotal += encuadernaciones(enc_BN);
+if (enc_c > 0) subtotal += encuadernaciones(enc_c);
+if (doble_c > 0) subtotal += doble(doble_c);
 
 if (subtotal >= UMBRAL2) { 
    subtotal -= subtotal * DTO2;
