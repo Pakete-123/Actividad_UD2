@@ -145,3 +145,17 @@ let total = subtotal * IVA;
 
 console.log(total);
 alert(`Total: ${total}`);
+
+console.log(`========Recibo Copisterias Pablete y Rafael========\n
+Páginas en blanco y negro: ${pags_bn}\n
+Páginas a color: ${pags_c}\n
+Páginas en doble cara: ${doble_c}\n
+Páginas en formato A3 en blanco y negro: ${a3_bn}\n
+Páginas en formato A3 en color: ${a3_c}\n
+Encuadernaciones en blanco y negro: ${enc_bn}\n
+Encuadernaciones a color: ${enc_c}\n
+Envio urgente: ${urg}
+Subtotal: ${subtotal}\n
+Total (IVA INCLUIDO): `);
+
+//Añadir el total, if con iterador dentro de los console.log
