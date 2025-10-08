@@ -110,7 +110,7 @@ var pags_bn = Number(prompt("¿Cuántas páginas quiere en blanco y negro?")),
    enc_bn = Number(prompt("Introduce cuántas encuadernaciones quiere en Blanco y Negro")), 
    enc_c = Number(prompt("Introduce cuántas encuadernaciones quiere a Color")), 
    urg = prompt("¿Lo necesita con urgencia? (Y/N)").toUpperCase,
-   subtotal = 0;
+   subtotal = 0, it = 0;
 
 //Creamos los condicionales para sumar al subtotal la suma correspondiente
 if (pags_bn > 0){
@@ -132,8 +132,10 @@ if (doble_c === "Y"){
 }
 if (subtotal >= cents(UMBRAL2)) {
    subtotal -= subtotal * DTO2;
+   it = 2;
 } else if (subtotal >= cents(UMBRAL1)) {
    subtotal -= subtotal * DTO1;
+   it = 1;
 }
 if (urg === "Y"){
    subtotal += urgencia
@@ -141,21 +143,31 @@ if (urg === "Y"){
    urg = "N";
 }
 
-let total = subtotal * IVA;
-
-console.log(total);
-alert(`Total: ${total}`);
+let iva = subtotal * IVA;
+let total = subtotal + iva;
 
 console.log(`========Recibo Copisterias Pablete y Rafael========\n
-Páginas en blanco y negro: ${pags_bn}\n
-Páginas a color: ${pags_c}\n
-Páginas en doble cara: ${doble_c}\n
-Páginas en formato A3 en blanco y negro: ${a3_bn}\n
+   Páginas en blanco y negro: ${pags_bn}\n
+   Páginas a color: ${pags_c}\n
+   Páginas en doble cara: ${doble_c}\n
+   Páginas en formato A3 en blanco y negro: ${a3_bn}\n
 Páginas en formato A3 en color: ${a3_c}\n
 Encuadernaciones en blanco y negro: ${enc_bn}\n
 Encuadernaciones a color: ${enc_c}\n
-Envio urgente: ${urg}
-Subtotal: ${subtotal}\n
-Total (IVA INCLUIDO): `);
+Envio urgente: ${urg}\n`);
 
-//Añadir el total, if con iterador dentro de los console.log
+if (it === 1) {
+   console.log(`Descuento Aplicado: ${DTO1 * 100}%`);
+} else if (it === 2) {
+   console.log(`Descuento Aplicado: ${DTO2 * 100}%`);
+} else {
+   console.log("Descuento Aplicado: Ninguno");
+}
+
+console.log(`Base Imponible: ${subtotal}\n
+   %IVA: ${IVA}\n
+   Importe IVA: ${iva}\n
+   ------------------------------------------\n
+   Total Factura: ${total}`)
+
+alert(`Total Factura: ${total}`);
