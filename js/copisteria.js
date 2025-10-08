@@ -147,6 +147,7 @@ let iva = subtotal * IVA;
 let total = subtotal + iva;
 
 console.log(`========Recibo Copisterias Pablete y Rafael========\n
+   Nº Factura: ${Math.floor(Math.random() * (9999999 - 1 + 1) + 1)}
    Páginas en blanco y negro: ${pags_bn}\n
    Páginas a color: ${pags_c}\n
    Páginas en doble cara: ${doble_c}\n
