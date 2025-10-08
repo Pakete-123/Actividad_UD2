@@ -76,7 +76,7 @@ function eur(x) {
 function suma_bn(x, y) {
    if (y === "Y") {
       factorA3(x);
-   }
+   } 
    return (x === null) ? null : cents(x * PRECIO_BN_A4);
 }
 
@@ -103,28 +103,34 @@ function doble(x) {
 
 //Creamos las variables necesarias y las pedimos con prompt
 var pags_bn = Number(prompt("¿Cuántas páginas quiere en blanco y negro?")),
-   pags_c = Number(prompt("¿Cuántas páginas quiere a color?")), 
-   doble_c = prompt("¿Quiere que sean copias a doble cara? (Y/N)").toUpperCase,
-   a3_bn = prompt("¿Quiere que sea papel DIN A3 en las copias Blanco y Negro? (Y/N)").toUpperCase, 
-   a3_c = prompt("¿Quiere que sea papel DIN A3 en las copias a Color? (Y/N)").toUpperCase, 
-   enc_bn = Number(prompt("Introduce cuántas encuadernaciones quiere en Blanco y Negro")), 
-   enc_c = Number(prompt("Introduce cuántas encuadernaciones quiere a Color")), 
-   urg = prompt("¿Lo necesita con urgencia? (Y/N)").toUpperCase,
+   pags_c = Number(prompt("¿Cuántas páginas quiere a color?")),
+   a3_bn = a3_c = enc_c = enc_bn = doble_c = urg = null,
    subtotal = 0, it = 0;
-
 //Creamos los condicionales para sumar al subtotal la suma correspondiente
 if (pags_bn > 0){
+   
+   a3_bn = String.prototype.toUpperCase(prompt("¿Quiere que sea papel DIN A3 en las copias Blanco y Negro? (Y/N)"));
    subtotal += suma_bn(pags_bn, a3_bn);
+   enc_bn = Number(prompt("Introduce cuántas encuadernaciones quiere en Blanco y Negro"));
+
+   if (enc_bn > 0){
+      subtotal += encuadernaciones(enc_bn);
+   } 
 } 
 if (pags_c > 0){
+
+   a3_c = String(prompt("¿Quiere que sea papel DIN A3 en las copias a Color? (Y/N)").toUpperCase);
    subtotal += suma_c(pags_c, a3_c);
+   enc_c = Number(prompt("Introduce cuántas encuadernaciones quiere a Color"));
+
+   if (enc_c > 0){
+      subtotal += encuadernaciones(enc_c);
+   } 
 } 
-if (enc_bn > 0){
-   subtotal += encuadernaciones(enc_bn);
-} 
-if (enc_c > 0){
-   subtotal += encuadernaciones(enc_c);
-} 
+
+doble_c = String(prompt("¿Quiere que sean copias a doble cara? (Y/N)").toUpperCase),
+urg = String(prompt("¿Lo necesita con urgencia? (Y/N)").toUpperCase);
+
 if (doble_c === "Y"){
    subtotal += doble(subtotal);
 } else {
@@ -152,10 +158,10 @@ console.log(`========Recibo Copisterias Pablete y Rafael========\n
    Páginas a color: ${pags_c}\n
    Páginas en doble cara: ${doble_c}\n
    Páginas en formato A3 en blanco y negro: ${a3_bn}\n
-Páginas en formato A3 en color: ${a3_c}\n
-Encuadernaciones en blanco y negro: ${enc_bn}\n
-Encuadernaciones a color: ${enc_c}\n
-Envio urgente: ${urg}\n`);
+   Páginas en formato A3 en color: ${a3_c}\n
+   Encuadernaciones en blanco y negro: ${enc_bn}\n
+   Encuadernaciones a color: ${enc_c}\n
+   Envio urgente: ${urg}\n`);
 
 if (it === 1) {
    console.log(`Descuento Aplicado: ${DTO1 * 100}%`);
