@@ -63,6 +63,8 @@ Comprobación mínima:
 - Probar al menos un caso con descuento y con urgencia, verificando que el orden indicado modifica el resultado.
 */
 
+
+//Creamos las funciones
 //Creamos las variables necesarias
 var pags_bn = prompt("¿Cuántas páginas quiere en blanco y negro?"), pags_c = prompt("¿Cuántas páginas quiere a color?"), doble_c = prompt("¿Quiere que sean copias a doble cara?"), a3 = prompt("¿Quiere que sea papel DIN A3? (Y/N)"), encBN = prompt("Introduce cuántas encuadernaciones quiere en Blanco y Negro"), encC = prompt("Introduce cuántas encuadernaciones quiere a Color"), urg = prompt("¿Lo necesita con urgencia?");
 let subtotal = suma_bn + suma_c;
@@ -76,18 +78,19 @@ function isNum(x) {
 }
 
 function suma_bn(x) {
-   const N = isNum(x);
-   return (N === null) ? null : N * PRECIO_BN_A4;
+   let n = isNum(x);
+   if (a3 === "Y") factorA3(n);
+   return (n === null) ? null : n * PRECIO_BN_A4;
 }
 
 function suma_c(x) {
-   const N = isNum(x);
-   return (N === null) ? null : N * PRECIO_COLOR_A4;
+   let n = isNum(x);
+   if (a3 === "Y") factorA3(n);
+   return (n === null) ? null : n * PRECIO_COLOR_A4;
 }
 
 function factorA3 (x){
-   const N = isNum(x);
-   return (N === null) ? null : N * RECARGO_A3_FACTOR;
+   return (x === null) ? null : x * RECARGO_A3_FACTOR;
 }
 
 function encuadernaciones(x){
@@ -100,12 +103,32 @@ function urgencia (x){
    return (N === null) ? null : N * RECARGO_URGENCIA;
 }
 
-function doble_c(x) {
+function doble(x) {
    const N = isNum(x);
-   return (N === null) ? null : subtotal *= FACTOR_DOBLE_CARA;
+   return (N === null) ? null : N *= FACTOR_DOBLE_CARA;
 }
 
-// ESTO VA DENTRO DE LA FUNCION DE EJECUCION
-const BN = pags_bn.value, C = pags_c.value, DOBLE = doble_c.value;
 
-/*nigga*/
+//Creamos las variables necesarias
+var pags_bn = prompt("¿Cuántas páginas quiere en blanco y negro?"),
+   pags_c = prompt("¿Cuántas páginas quiere a color?"), 
+   doble_c = prompt("¿Quiere que sean copias a doble cara?"),
+   a3 = prompt("¿Quiere que sea papel DIN A3? (Y/N)").toUpperCase, 
+   enc_BN = prompt("Introduce cuántas encuadernaciones quiere en Blanco y Negro"), 
+   enc_C = prompt("Introduce cuántas encuadernaciones quiere a Color"), 
+   urg = prompt("¿Lo necesita con urgencia? (Y/N)").toUpperCase;
+
+let subtotal = 0;
+
+if (pags_bn > 0) subtotal += suma_bn(pags_bn);
+if (pags_c > 0) subtotal += suma_c(pags_c);
+if (enc_BN > 0) subtotal += encuadernaciones(enc_BN);
+if (enc_c > 0) subtotal += encuadernaciones(enc_c);
+if (doble_c > 0) subtotal += doble(doble_c);
+
+if (subtotal >= UMBRAL2) { 
+   subtotal -= subtotal * DTO2;
+} else if (subtotal >= UMBRAL1) {
+   subtotal -= subtotal * DTO1;
+}
+
