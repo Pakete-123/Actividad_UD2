@@ -77,30 +77,27 @@ function suma_bn(x, y) {
    if (y === "Y") {
       factorA3(x);
    }
-   return (x === null) ? null : x * PRECIO_BN_A4;
+   return (x === null) ? null : cents(x * PRECIO_BN_A4);
 }
 
 function suma_c(x, y) {
-   if (y === "Y") {
-      factorA3(x);
-   }
-   return (x === null) ? null : x * PRECIO_COLOR_A4;
+   return (x === null) ? null : cents(x * PRECIO_COLOR_A4);
 }
 
 function factorA3(x){
-   return (x === null) ? null : x * RECARGO_A3_FACTOR;
+   return (x === null || x !== "Y") ? "N" : cents(x * RECARGO_A3_FACTOR);
 }
 
 function encuadernaciones(x){
-   return (x === null) ? null : x * PRECIO_ENCUADERNACION;
+   return (x === null) ? null : cents(x * PRECIO_ENCUADERNACION);
 }
 
 function urgencia(x){
-   return (x === null) ? null : x * RECARGO_URGENCIA;
+   return (x === null) ? null : cents(x * RECARGO_URGENCIA);
 }
 
 function doble(x) {
-   return (x === null) ? null : x *= FACTOR_DOBLE_CARA;
+   return (x === null) ? null : cents(x *= FACTOR_DOBLE_CARA);
 }
 
 
@@ -112,10 +109,10 @@ var pags_bn = Number(prompt("¿Cuántas páginas quiere en blanco y negro?")),
    a3_c = prompt("¿Quiere que sea papel DIN A3 en las copias a Color? (Y/N)").toUpperCase, 
    enc_bn = Number(prompt("Introduce cuántas encuadernaciones quiere en Blanco y Negro")), 
    enc_c = Number(prompt("Introduce cuántas encuadernaciones quiere a Color")), 
-   urg = prompt("¿Lo necesita con urgencia? (Y/N)").toUpperCase;
+   urg = prompt("¿Lo necesita con urgencia? (Y/N)").toUpperCase,
+   subtotal = 0;
 
-var subtotal = 0;
-
+//Creamos los condicionales para sumar al subtotal la suma correspondiente
 if (pags_bn > 0){
    subtotal += suma_bn(pags_bn, a3_bn);
 } 
@@ -130,17 +127,24 @@ if (enc_c > 0){
 } 
 if (doble_c === "Y"){
    subtotal += doble(subtotal);
+} else {
+   doble_c = "N";
+}
+if (subtotal >= cents(UMBRAL2)) {
+   subtotal -= subtotal * DTO2;
+} else if (subtotal >= cents(UMBRAL1)) {
+   subtotal -= subtotal * DTO1;
 }
 if (urg === "Y"){
    subtotal += urgencia
-}
-if (subtotal >= UMBRAL2) {
-   subtotal -= subtotal * DTO2;
-} else if (subtotal >= UMBRAL1) {
-   subtotal -= subtotal * DTO1;
+} else {
+   urg = "N";
 }
 
-alert(`Total: ${subtotal}`);
+let total = subtotal * IVA;
+
+console.log(total);
+alert(`Total: ${total}`);
 
 console.log(`========Recibo Copisterias Pablete y Rafael========\n
 Páginas en blanco y negro: ${pags_bn}\n
