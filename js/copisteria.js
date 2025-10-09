@@ -113,35 +113,36 @@ let a3_bn = null, a3_c = null, enc_c = null, enc_bn = null, doble_c = null, urg 
 let subtotal = 0, it = 0;
 
 //Creamos los condicionales para sumar al subtotal la suma correspondiente
-if (pags_bn > 0 && !isNaN(pags_bn)){
-   
+   //Pedimos las páginas en blanco y negro
+if (pags_bn > 0){
    a3_bn = verifYN(prompt("¿Quiere que sea papel DIN A3 en las copias Blanco y Negro? (Y/N)"));
    subtotal += suma_bn(pags_bn, a3_bn);
-   enc_bn = Number(prompt("Introduce cuántas encuadernaciones quiere en Blanco y Negro"));
 
-   if (enc_bn > 0){
-      subtotal += encuadernaciones(enc_bn);
-   } else {
-      
+   enc_bn = Number(prompt("Introduce cuántas encuadernaciones quiere en Blanco y Negro"));
+   if (isNaN(enc_bn) || enc_bn < 0) {
+       alert("Valor no válido, se pondrá 0");
+       enc_bn = 0;
    }
 
+   subtotal += encuadernaciones(enc_bn);
 } else {
-   alert("Valor no válido, se pondrá 0");
-   pags_bn = 0, enc_bn = 0, a3_bn = "N";
+   a3_bn = "N";
 }
 
-if (pags_c > 0 && !isNaN(pags_c)){
-
+   //Pedimos las páginas a color
+if (pags_c > 0){
    a3_c = verifYN(prompt("¿Quiere que sea papel DIN A3 en las copias a Color? (Y/N)"));
    subtotal += suma_c(pags_c, a3_c);
-   enc_c = Number(prompt("Introduce cuántas encuadernaciones quiere a Color"));
 
-   if (enc_c > 0){
-      subtotal += encuadernaciones(enc_c);
-   } 
+   enc_c = Number(prompt("Introduce cuántas encuadernaciones quiere a Color"));
+   if (isNaN(enc_c) || enc_c < 0) {
+       alert("Valor no válido, se pondrá 0");
+       enc_c = 0;
+   }
+
+   subtotal += encuadernaciones(enc_c);
 } else {
-   alert("Valor no válido, se pondrá 0");
-   pags_c = 0, enc_c = 0, a3_c = "N";
+   a3_c = "N";
 }
 
    //Pedimos los valores que podrán alterar el resultado

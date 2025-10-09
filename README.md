@@ -16,17 +16,6 @@ Autores:
 Pablo Torrecilla Laiglesia.
 Rafael Hortelano Hernández.
 
-Partes asignadas:
-
-Estructuras de if, umbrales de descuento y prompts (alertboxes)
-
-Pablo.
-
-Funciones de calculo y salidas por consola del recibo
-
-Rafa.
-
-
 *=====DEPURACION DEL CODIGO=====*
 
 Funciones (sumaBN y sumaC)
@@ -123,7 +112,37 @@ Corregida la factura
     Hojas Color = 1
     DIN A3 en Blanco y Negro = S
     Encuadernaciones en Blanco y Negro = J
-    DIN A3 a Color = J
+    DIN A3 a Color = k
     Encuadernaciones a Color = 0
     Copias Doble Cara = y
     Urgencia = Y
+
+*/Salida/*
+    ========Recibo Copisterias Pablo y Rafael========
+
+    Nº Factura: 4201362
+    Páginas en blanco y negro: 1
+
+    Páginas a color: 1
+
+    Páginas en doble cara: Y
+
+    Páginas en formato A3 en blanco y negro: N
+
+    Páginas en formato A3 en color: N
+
+    Encuadernaciones en blanco y negro: 0
+
+    Encuadernaciones a color: 0
+
+    Envio urgente: Y
+
+    Descuento Aplicado: Ninguno
+    Base Imponible: 0.26
+
+    %IVA: 21%
+    Importe IVA: 0.05
+
+    ------------------------------------------
+
+    Total Factura: 0.31
