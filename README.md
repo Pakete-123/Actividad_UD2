@@ -25,3 +25,10 @@ Pablo.
 Funciones de calculo y salidas por consola del recibo
 
 Rafa.
+
+
+*=====DEPURACION DEL CODIGO=====*
+
+Funciones (sumaBN y sumaC)
+Se han eliminado las funciones de factor a3 y urg.
+Cambiado en las funciones del umbral de descuento: toFixed() por Math.round()
