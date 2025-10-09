@@ -74,6 +74,12 @@ function eur(x) {
    return (x / 100).toFixed(2);
 }
 
+function verifYN(c) {
+  if (!c) return "N";
+  c = c.trim().toUpperCase();
+  return (c === "Y") ? "Y" : "N";
+}
+
    //Operaciones base
 function suma_bn(x, y) {
    let z = x * PRECIO_BN_A4;
@@ -109,7 +115,7 @@ let subtotal = 0, it = 0;
 //Creamos los condicionales para sumar al subtotal la suma correspondiente
 if (pags_bn > 0 && !isNaN(pags_bn)){
    
-   a3_bn = String(prompt("¿Quiere que sea papel DIN A3 en las copias Blanco y Negro? (Y/N)").trim().toUpperCase());
+   a3_bn = verifYN(prompt("¿Quiere que sea papel DIN A3 en las copias Blanco y Negro? (Y/N)"));
    subtotal += suma_bn(pags_bn, a3_bn);
    enc_bn = Number(prompt("Introduce cuántas encuadernaciones quiere en Blanco y Negro"));
 
@@ -126,7 +132,7 @@ if (pags_bn > 0 && !isNaN(pags_bn)){
 
 if (pags_c > 0 && !isNaN(pags_c)){
 
-   a3_c = String(prompt("¿Quiere que sea papel DIN A3 en las copias a Color? (Y/N)").trim().toUpperCase());
+   a3_c = verifYN(prompt("¿Quiere que sea papel DIN A3 en las copias a Color? (Y/N)"));
    subtotal += suma_c(pags_c, a3_c);
    enc_c = Number(prompt("Introduce cuántas encuadernaciones quiere a Color"));
 
@@ -139,8 +145,8 @@ if (pags_c > 0 && !isNaN(pags_c)){
 }
 
    //Pedimos los valores que podrán alterar el resultado
-doble_c = String(prompt("¿Quiere que sean copias a doble cara? (Y/N)").trim().toUpperCase()),
-urg = String(prompt("¿Lo necesita con urgencia? (Y/N)").trim().toUpperCase());
+doble_c = verifYN(prompt("¿Quiere que sean copias a doble cara? (Y/N)")),
+urg = verifYN(prompt("¿Lo necesita con urgencia? (Y/N)"));
 
 if (doble_c === "Y"){
    subtotal = doble(subtotal);
