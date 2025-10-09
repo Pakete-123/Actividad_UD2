@@ -65,6 +65,7 @@ Comprobación mínima:
 
 
 //Creamos las funciones
+   //Conversiones
 function cents(x) {
    return Math.round(x * 100);
 }
@@ -73,87 +74,107 @@ function eur(x) {
    return (x / 100).toFixed(2);
 }
 
+   //Operaciones base
 function suma_bn(x, y) {
+   let z = x * PRECIO_BN_A4;
    if (y === "Y") {
-      factorA3(x);
+      z *= RECARGO_A3_FACTOR;
    } 
-   return (x === null) ? null : cents(x * PRECIO_BN_A4);
+   return (x === null) ? null : cents(z);
 }
 
 function suma_c(x, y) {
-   return (x === null) ? null : cents(x * PRECIO_COLOR_A4);
-}
-
-function factorA3(x){
-   return (x === null || x !== "Y") ? "N" : cents(x * RECARGO_A3_FACTOR);
+   let z = x * PRECIO_COLOR_A4;
+   if (y === "Y") {
+      z *= RECARGO_A3_FACTOR;
+   } 
+   return (x === null) ? null : cents(z);
 }
 
 function encuadernaciones(x){
-   return (x === null) ? null : cents(x * PRECIO_ENCUADERNACION);
-}
-
-function urgencia(x){
-   return (x === null) ? null : cents(x * RECARGO_URGENCIA);
+   return (x === null) ? null : x * cents(PRECIO_ENCUADERNACION);
 }
 
 function doble(x) {
-   return (x === null) ? null : cents(x *= FACTOR_DOBLE_CARA);
+   return (x === null) ? null : Math.round(x * FACTOR_DOBLE_CARA);
 }
 
 
 //Creamos las variables necesarias y las pedimos con prompt
-var pags_bn = Number(prompt("¿Cuántas páginas quiere en blanco y negro?")),
-   pags_c = Number(prompt("¿Cuántas páginas quiere a color?")),
-   a3_bn = a3_c = enc_c = enc_bn = doble_c = urg = null,
-   subtotal = 0, it = 0;
+let pags_bn = Number(prompt("¿Cuántas páginas quiere en blanco y negro?")),
+   pags_c = Number(prompt("¿Cuántas páginas quiere a color?"));
+let a3_bn = null, a3_c = null, enc_c = null, enc_bn = null, doble_c = null, urg = null;
+let subtotal = 0, it = 0;
+
 //Creamos los condicionales para sumar al subtotal la suma correspondiente
-if (pags_bn > 0){
+if (pags_bn > 0 && !isNaN(pags_bn)){
    
-   a3_bn = String.prototype.toUpperCase(prompt("¿Quiere que sea papel DIN A3 en las copias Blanco y Negro? (Y/N)"));
+   a3_bn = String(prompt("¿Quiere que sea papel DIN A3 en las copias Blanco y Negro? (Y/N)").trim().toUpperCase());
    subtotal += suma_bn(pags_bn, a3_bn);
    enc_bn = Number(prompt("Introduce cuántas encuadernaciones quiere en Blanco y Negro"));
 
    if (enc_bn > 0){
       subtotal += encuadernaciones(enc_bn);
-   } 
-} 
-if (pags_c > 0){
+   } else {
+      
+   }
 
-   a3_c = String(prompt("¿Quiere que sea papel DIN A3 en las copias a Color? (Y/N)").toUpperCase);
+} else {
+   alert("Valor no válido, se pondrá 0");
+   pags_bn = 0, enc_bn = 0, a3_bn = "N";
+}
+
+if (pags_c > 0 && !isNaN(pags_c)){
+
+   a3_c = String(prompt("¿Quiere que sea papel DIN A3 en las copias a Color? (Y/N)").trim().toUpperCase());
    subtotal += suma_c(pags_c, a3_c);
    enc_c = Number(prompt("Introduce cuántas encuadernaciones quiere a Color"));
 
    if (enc_c > 0){
       subtotal += encuadernaciones(enc_c);
    } 
-} 
+} else {
+   alert("Valor no válido, se pondrá 0");
+   pags_c = 0, enc_c = 0, a3_c = "N";
+}
 
-doble_c = String(prompt("¿Quiere que sean copias a doble cara? (Y/N)").toUpperCase),
-urg = String(prompt("¿Lo necesita con urgencia? (Y/N)").toUpperCase);
+   //Pedimos los valores que podrán alterar el resultado
+doble_c = String(prompt("¿Quiere que sean copias a doble cara? (Y/N)").trim().toUpperCase()),
+urg = String(prompt("¿Lo necesita con urgencia? (Y/N)").trim().toUpperCase());
 
 if (doble_c === "Y"){
-   subtotal += doble(subtotal);
+   subtotal = doble(subtotal);
 } else {
    doble_c = "N";
 }
+
+   //Descuento
 if (subtotal >= cents(UMBRAL2)) {
-   subtotal -= subtotal * DTO2;
+   subtotal = Math.round(subtotal - subtotal * DTO2);
    it = 2;
 } else if (subtotal >= cents(UMBRAL1)) {
-   subtotal -= subtotal * DTO1;
+   subtotal = Math.round(subtotal - subtotal * DTO1);
    it = 1;
 }
+
+   //Urgencia
 if (urg === "Y"){
-   subtotal += urgencia
+   subtotal = Math.round(subtotal + subtotal * RECARGO_URGENCIA);
 } else {
    urg = "N";
 }
 
-let iva = subtotal * IVA;
+   //IVA
+let iva = Math.round(subtotal * IVA);
 let total = subtotal + iva;
 
-console.log(`========Recibo Copisterias Pablete y Rafael========\n
-   Nº Factura: ${Math.floor(Math.random() * (9999999 - 1 + 1) + 1)}
+   //Convertimos a euros solo para mostrar
+let subtotalEuros = eur(subtotal);
+let ivaEuros = eur(iva);
+let totalEuros = eur(total);
+
+console.log(`========Recibo Copisterias Pablo y Rafael========\n
+   Nº Factura: ${Math.round(Math.random() * (9999999 - 1 + 1) + 1)}
    Páginas en blanco y negro: ${pags_bn}\n
    Páginas a color: ${pags_c}\n
    Páginas en doble cara: ${doble_c}\n
@@ -171,10 +192,10 @@ if (it === 1) {
    console.log("Descuento Aplicado: Ninguno");
 }
 
-console.log(`Base Imponible: ${subtotal}\n
-   %IVA: ${IVA}\n
-   Importe IVA: ${iva}\n
+console.log(`Base Imponible: ${subtotalEuros}\n
+   %IVA: ${IVA * 100}%
+   Importe IVA: ${ivaEuros}\n
    ------------------------------------------\n
-   Total Factura: ${total}`)
+   Total Factura: ${totalEuros}`);
 
-alert(`Total Factura: ${total}`);
+alert(`Total Factura: ${totalEuros}`);

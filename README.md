@@ -32,3 +32,5 @@ Rafa.
 Funciones (sumaBN y sumaC)
 Se han eliminado las funciones de factor a3 y urg.
 Cambiado en las funciones del umbral de descuento: toFixed() por Math.round()
+Se ha cambiado la forma de como se muestran los datos
+Corregida la factura
